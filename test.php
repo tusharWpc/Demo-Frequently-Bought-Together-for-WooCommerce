@@ -19,10 +19,13 @@ add_action('admin_enqueue_scripts', 'enqueue_bought_together_scripts');
 function enqueue_bought_together_scripts()
 {
     wp_enqueue_script('fbt-ajax', plugin_dir_url(__FILE__) . 'inc/ajax-search.js', array('jquery'), '1.0', true);
-    wp_localize_script('fbt-ajax', 'ajax_params', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'search_nonce' => wp_create_nonce('search_nonce')
-    )
+    wp_localize_script(
+        'fbt-ajax',
+        'ajax_params',
+        array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'search_nonce' => wp_create_nonce('search_nonce')
+        )
     );
 }
 
