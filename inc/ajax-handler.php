@@ -3,7 +3,8 @@
 add_action('wp_ajax_search_products', 'search_products');
 add_action('wp_ajax_nopriv_search_products', 'search_products');
 
-function search_products() {
+function search_products()
+{
     check_ajax_referer('search_nonce', 'security');
 
     $search_term = $_POST['search_term'];

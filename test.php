@@ -87,14 +87,12 @@ function add_bought_together_panel()
     <div id="bought_together_data_option" class="panel woocommerce_options_panel">
         <div class="options_group">
             <p class="form-field">
-                <label for="bought_together_search">
-                    <?php _e('Search Products:', 'fbt'); ?>
-                </label>
                 <input type="text" id="bought_together_search" class="short" name="bought_together_search">
-                <button id="bought_together_search_button" class="button">
-                    <?php _e('Search', 'fbt'); ?>
+                <button id="clear_search" class="button">
+                    <?php _e('Clear', 'fbt'); ?>
                 </button>
             <div id="bought_together_search_results"></div>
+
             </p>
         </div>
     </div>

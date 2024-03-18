@@ -6,14 +6,24 @@ jQuery(document).ready(function ($) {
         console.log('Selected product: ' + productTitle);
     }
 
+    // Variables for debouncing search input
+    var searchTimer;
+    var debounceDelay = 300; // milliseconds
+
     // Event listener for keyup event on search input
     $('#bought_together_search').keyup(function () {
-        var searchTerm = $(this).val();
+        var searchTerm = $(this).val().trim();
 
-        // Check if the search term has 3 or more characters
+        // Check if the search term has reached the minimum length
         if (searchTerm.length >= 3) {
-            // Trigger the search automatically
-            searchProducts(searchTerm);
+            clearTimeout(searchTimer);
+            // Debounce the search input to prevent frequent AJAX requests
+            searchTimer = setTimeout(function () {
+                searchProducts(searchTerm);
+            }, debounceDelay);
+        } else {
+            // Clear the search results if the search term is less than 3 characters
+            $('#bought_together_search_results').empty();
         }
     });
 
@@ -40,5 +50,11 @@ jQuery(document).ready(function ($) {
     $('#bought_together_search_results').on('click', 'p', function () {
         var productTitle = $(this).text(); // Get the selected product title
         handleProductSelection(productTitle); // Handle the product selection
+    });
+
+    // Clear button functionality
+    $('#clear_search').click(function () {
+        $('#bought_together_search').val('').focus();
+        $('#bought_together_search_results').empty();
     });
 });
