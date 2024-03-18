@@ -11,11 +11,11 @@ jQuery(document).ready(function ($) {
     var debounceDelay = 300; // milliseconds
 
     // Event listener for keyup event on search input
-    $('#bought_together_search').keyup(function () {
+    $('#bought_together_search').on('input', function () {
         var searchTerm = $(this).val().trim();
 
         // Check if the search term has reached the minimum length
-        if (searchTerm.length >= 3) {
+        if (searchTerm.length >= 1) {
             clearTimeout(searchTimer);
             // Debounce the search input to prevent frequent AJAX requests
             searchTimer = setTimeout(function () {
@@ -36,6 +36,10 @@ jQuery(document).ready(function ($) {
                 action: 'search_products',
                 search_term: searchTerm,
                 security: ajax_params.search_nonce // You need to add a security nonce here
+            },
+            beforeSend: function () {
+                // Display a loading spinner or message while waiting for search results
+                $('#bought_together_search_results').html('<p>Loading...</p>');
             },
             success: function (response) {
                 $('#bought_together_search_results').html(response);
